@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Modal } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { saveAgendamento } from '../config/agendamentoconfig';
 
 export default function AgendamentoColeta() {
 
@@ -19,6 +20,25 @@ export default function AgendamentoColeta() {
     const handleMaterialSelect = (material: string) => {
         setSelectedMaterial(material);
         setShowModal(false);
+      };
+
+      const handleSchedule = async () => {
+        if (selectedDate && selectedMaterial) {
+          const agendamento = {
+            dataColeta: selectedDate.toISOString().split('T')[0], // Formato YYYY-MM-DD
+            material: selectedMaterial,
+          };
+      
+          try {
+            await saveAgendamento(agendamento);
+            alert(`Coleta agendada para ${selectedDate.toLocaleDateString()} com material ${selectedMaterial}`);
+          } catch (error) {
+            console.error('Erro ao agendar coleta:', error);
+            alert('Erro ao agendar coleta. Tente novamente.');
+          }
+        } else {
+          alert('Selecione uma data e um material antes de agendar.');
+        }
       };
     
 
@@ -98,14 +118,8 @@ export default function AgendamentoColeta() {
       </Modal>
 
       <TouchableOpacity
-        style={styles.scheduleButton}
-        onPress={() => {
-          if (selectedDate && selectedMaterial) {
-            alert(`Coleta agendada para ${selectedDate.toLocaleDateString()} com material ${selectedMaterial}`);
-          } else {
-            alert('Selecione uma data e um material antes de agendar.');
-          }
-        }}
+          style={styles.scheduleButton}
+          onPress={handleSchedule} // Chama a função quando o botão é pressionado
       >
         <Text style={styles.scheduleButtonText}>Agendar Coleta</Text>
       </TouchableOpacity>

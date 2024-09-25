@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const BASE_URL = 'http://192.168.1.138:9090/api'; // Substitua <YOUR_COMPUTER_IP> pelo IP do seu computador
 
 export async function signUp(email: string, password: string, address: string) {
@@ -19,7 +21,7 @@ export async function signUp(email: string, password: string, address: string) {
   }
 }
 
-export async function signIn(email: string, password: string) {
+export async function signIn(email: string, password: string): Promise<any> {
   try {
     const requestBody = JSON.stringify({ email, password });
 
@@ -32,12 +34,17 @@ export async function signIn(email: string, password: string) {
     });
 
     if (!response.ok) {
-      const errorResponse = await response.text(); // Tente obter o corpo do erro como texto
+      const errorResponse = await response.text();
       throw new Error(errorResponse || `HTTP error! status: ${response.status}`);
     }
-    return await response.json(); // Assumindo que a resposta seja JSON
+
+    const data = await response.json();
+    console.log('Login response data:', data); // Verifique o que está sendo retornado
+
+    return data; // Retorna a resposta do login sem manipular tokens
   } catch (error) {
     console.error('Error signing in:', error);
     throw error;
   }
 }
+

@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Feed from '../screens/Feed'
 import {Feather} from '@expo/vector-icons'
-import NotificacaoColeta from '../screens/NotificacaoColeta';
+
 import AgendamentoColeta from '../screens/Agendamento';
+import ListagemAgenda from '../screens/ListagemAgend';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,11 +27,11 @@ export default function TabRoutes() {
              }}
             />    
             <Tab.Screen
-             name="Notificação Coleta"
-             component={NotificacaoColeta}
+             name="Controle Agendamento"
+             component={ListagemAgenda}
              options={{
                 tabBarIcon: ({ color, size }) => <Feather name="plus" color={color} size={size}/>,
-                tabBarLabel: 'Notificação Coleta'
+                tabBarLabel: 'Controle Agendamento'
              }}
             />
        
