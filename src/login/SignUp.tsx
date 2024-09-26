@@ -18,7 +18,7 @@ export default function SignUp() {
 
     async function handleSignUp() {
         try {
-          const response = await signUp(email, password, address);
+          const response = await signUp(name, email, password, address);
           console.log('User signed up:', response);
           navigation.navigate('SignIn');
         } catch (error) {

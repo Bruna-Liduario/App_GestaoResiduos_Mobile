@@ -1,4 +1,4 @@
-const BASE_URL = 'http://192.168.1.138:9090/agendamento';
+const BASE_URL = 'http://192.168.100.144:9090/agendamento';
 
 interface Agendamento {
   dataColeta: string; // ou Date, dependendo da sua preferência

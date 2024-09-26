@@ -1,15 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BASE_URL = 'http://192.168.1.138:9090/api'; // Substitua <YOUR_COMPUTER_IP> pelo IP do seu computador
+const BASE_URL = 'http://192.168.100.144:9090/api'; // Substitua <YOUR_COMPUTER_IP> pelo IP do seu computador
 
-export async function signUp(email: string, password: string, address: string) {
+export async function signUp(nome: string, email: string, password: string, address: string) {
   try {
     const response = await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password, address }),
+      body: JSON.stringify({ nome, email, password, address }),
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

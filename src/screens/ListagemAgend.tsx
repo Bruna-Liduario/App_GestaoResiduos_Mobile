@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert, Button } from 'react-native';
 import { fetchAgendamentos, deleteAgendamento } from '../config/agendamentoconfig'; 
+import { format } from 'date-fns';
+
 
 const ListagemAgenda = () => {
   const [agendamentos, setAgendamentos] = useState<any[]>([]);
@@ -36,10 +38,10 @@ const ListagemAgenda = () => {
 
   const renderItem = ({ item }: { item: any }) => (
     <View style={styles.row}>
-      <Text style={styles.cell}>{new Date(item.dataColeta).toLocaleDateString()}</Text>
-      <Text style={styles.cell}>{item.material}</Text>
-      <Button title="Excluir" color="red" onPress={() => handleDelete(item.id)} />
-    </View>
+    <Text style={styles.cell}>{format(new Date(item.dataColeta), 'dd/MM/yyyy')}</Text>
+    <Text style={styles.cell}>{item.material}</Text>
+    <Button title="Excluir" color="red" onPress={() => handleDelete(item.id)} />
+  </View>
   );
 
   if (loading) {
